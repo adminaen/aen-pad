@@ -1,0 +1,20 @@
+{
+  "name": "aen-pad",
+  "version": "1.0.0",
+  "description": "AEN Pad: clone do dontpad.com — notas por URL, sem login de usuário, protegido por senha única.",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "backup": "node scripts/backup.js"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "better-sqlite3": "^11.3.0",
+    "cookie": "^0.6.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}

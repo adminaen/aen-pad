@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>nota</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/assets/note.css" />
+</head>
+<body>
+  <nav id="sidebar" hidden>
+    <a id="sidebar-up" href="#" hidden>‹ voltar</a>
+    <div id="sidebar-title" hidden>notas aqui dentro</div>
+    <ul id="sidebar-list" hidden></ul>
+  </nav>
+
+  <div id="main-column">
+    <textarea id="editor" placeholder="escreva algo — salva sozinho" disabled></textarea>
+    <div id="preview" hidden></div>
+
+    <div id="status-bar">
+      <span id="status">carregando…</span>
+      <span class="links">
+        <a id="preview-toggle" href="#">visualizar</a>
+        <a id="history-link" href="#">histórico</a>
+        <a id="zip-link" href="#">baixar .zip</a>
+        <a href="/_notas">todas as notas</a>
+        <form id="logout-form" method="post" action="/logout"><button type="submit">sair</button></form>
+      </span>
+    </div>
+  </div>
+
+  <div id="history-panel" hidden>
+    <div id="history-panel-inner">
+      <div id="history-header">
+        <strong>histórico desta nota</strong>
+        <button id="history-close">fechar</button>
+      </div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/marked.js"></script>
+  <script src="/assets/vendor/purify.min.js"></script>
+  <script src="/assets/note.js"></script>
+</body>
+</html>

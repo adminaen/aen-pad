@@ -1,0 +1,28 @@
+# Overlay para expor o app publicamente com HTTPS automático (Caddy).
+# Uso: docker compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+#
+# Não expõe o app diretamente — ele continua só em 127.0.0.1:3000 (veja
+# docker-compose.yml). O Caddy é o único serviço com portas públicas
+# (80/443) e fala com o app pela rede interna do Compose
+# (http://aen-pad:3000), obtendo e renovando o certificado TLS
+# sozinho via Let's Encrypt para o domínio em DOMAIN (.env).
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: "${DOMAIN:?defina DOMAIN no .env, ex. pad.admiravelempregonovo.com.br}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - aen-pad
+
+volumes:
+  caddy-data:
+  caddy-config:

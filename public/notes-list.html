@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>todas as notas</title>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fdfdfc;
+      color: #1a1a1a;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { background: #16161a; color: #eee; }
+      li { border-color: #2a2a2f !important; }
+      a { color: #7aa2ff !important; }
+    }
+    header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #e5e5e3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    h1 { font-size: 1.1rem; margin: 0; }
+    a.new { color: #2563eb; text-decoration: none; font-size: .9rem; }
+    ul { list-style: none; margin: 0; padding: 0; max-width: 640px; margin-inline: auto; }
+    li { border-bottom: 1px solid #eee; padding: .9rem 1rem; }
+    li a { color: #1a1a1a; text-decoration: none; font-weight: 600; }
+    li a:hover { text-decoration: underline; }
+    .meta { font-size: .75rem; color: #888; margin-top: .2rem; }
+    #empty { padding: 2rem; text-align: center; color: #888; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>todas as notas</h1>
+    <a class="new" href="/">+ nova nota</a>
+  </header>
+  <ul id="list"></ul>
+  <div id="empty" hidden>nenhuma nota ainda. <a href="/">crie a primeira</a>.</div>
+
+  <script>
+    fetch('/api/_notas').then((r) => r.json()).then(({ notes }) => {
+      const list = document.getElementById('list');
+      if (notes.length === 0) {
+        document.getElementById('empty').hidden = false;
+        return;
+      }
+      for (const note of notes) {
+        const li = document.createElement('li');
+        const when = new Date(note.lastModified).toLocaleString('pt-BR');
+        li.innerHTML =
+          '<a href="/' + note.path.split('/').map(encodeURIComponent).join('/') + '">/' + note.path + '</a>' +
+          '<div class="meta">' + note.size + ' caracteres · atualizado em ' + when + '</div>';
+        list.appendChild(li);
+      }
+    });
+  </script>
+</body>
+</html>
